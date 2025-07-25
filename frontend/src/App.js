@@ -376,7 +376,7 @@ const ChatInterface = () => {
       {/* Sidebar */}
       <div className={`${showSidebar ? 'translate-x-0' : '-translate-x-full'} fixed inset-y-0 left-0 z-50 w-80 bg-gray-800 border-r border-gray-700 transition-transform duration-300 lg:translate-x-0 lg:static lg:inset-0`}>
         <div className="flex items-center justify-between p-4 border-b border-gray-700">
-          <h2 className="text-xl font-bold">KurdAI</h2>
+          <h2 className="text-xl font-bold">KurdCine Chat</h2>
           <button
             onClick={() => setShowSidebar(false)}
             className="lg:hidden p-2 rounded-lg hover:bg-gray-700"
