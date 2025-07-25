@@ -134,15 +134,18 @@ backend:
   
   - task: "Gemini AI Integration"
     implemented: true
-    working: true
+    working: false
     file: "server.py"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Gemini 2.0 Flash integrated via emergentintegrations library"
+      - working: false
+        agent: "testing"
+        comment: "❌ CRITICAL: Chat API fails with 500 error due to invalid Gemini API key. The EMERGENT_LLM_KEY in backend/.env is set to 'emergent_llm_key' which is a placeholder, not a valid Google Gemini API key. Backend logs show: 'API key not valid. Please pass a valid API key.' Need valid Gemini API key to test AI functionality."
   
   - task: "Chat System with Memory"
     implemented: true
