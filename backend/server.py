@@ -33,6 +33,11 @@ mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
+# Configure Google Gemini
+google_api_key = os.environ.get('GOOGLE_API_KEY')
+if google_api_key:
+    genai.configure(api_key=google_api_key)
+
 # Create the main app without a prefix
 app = FastAPI(title="KurdAI API", version="1.0.0")
 
