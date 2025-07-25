@@ -416,7 +416,7 @@ async def delete_admin_prompt(prompt_id: str, current_user: User = Depends(get_c
 # Legacy endpoints
 @api_router.get("/")
 async def root():
-    return {"message": "KurdAI API is running"}
+    return {"message": "KurdCine Chat API is running"}
 
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
