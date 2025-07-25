@@ -151,8 +151,8 @@ const AuthForm = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 flex items-center justify-center px-4">
       <div className="bg-gray-800 p-8 rounded-2xl shadow-2xl w-full max-w-md border border-gray-700">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">KurdAI</h1>
-          <p className="text-gray-400">Your AI-powered assistant</p>
+          <h1 className="text-4xl font-bold text-white mb-2">KurdCine Chat</h1>
+          <p className="text-gray-400">Your AI-powered Kurdish assistant</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
