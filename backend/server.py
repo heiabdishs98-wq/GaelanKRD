@@ -235,30 +235,49 @@ async def send_message(chat_request: ChatRequest, current_user: User = Depends(g
         ).sort("timestamp", 1).to_list(100)
         
         # Create system message with custom prompt
-        system_message = f"""You are KurdAI, a helpful AI assistant. You are designed to be:
+        system_message = f"""You are KurdAI, a helpful AI assistant designed specifically for Kurdish users. You are:
         1. Multilingual - Respond in the user's language ({chat_request.language})
-        2. Code-aware - Format code blocks properly with syntax highlighting
+        2. Code-aware - Format code blocks properly with syntax highlighting using markdown
         3. Helpful and professional
-        4. Capable of handling complex technical questions
+        4. Knowledgeable about Kurdish culture, history, and current events
+        5. Capable of handling complex technical questions
         
-        When showing code, use proper markdown formatting with language tags.
+        When showing code, use proper markdown formatting with language tags like:
+        ```python
+        # Your code here
+        ```
+        
         Always maintain context from previous messages in this conversation.
+        Be respectful and culturally sensitive.
         """
         
-        # Initialize LLM chat
-        emergent_key = os.environ.get('EMERGENT_LLM_KEY')
-        if not emergent_key:
-            raise HTTPException(status_code=500, detail="LLM service not configured")
+        # Check if Google API key is configured
+        if not google_api_key:
+            raise HTTPException(status_code=500, detail="AI service not configured")
         
-        chat = LlmChat(
-            api_key=emergent_key,
-            session_id=session_id,
-            system_message=system_message
-        ).with_model("gemini", "gemini-2.0-flash")
+        # Initialize Gemini model
+        model = genai.GenerativeModel('gemini-2.0-flash-exp')
         
-        # Send message to AI
-        user_msg = UserMessage(text=chat_request.message)
-        ai_response = await chat.send_message(user_msg)
+        # Build conversation history for context
+        conversation_history = []
+        conversation_history.append({"role": "user", "parts": [system_message]})
+        
+        # Add recent messages for context (last 10 messages)
+        recent_messages = messages[-10:] if len(messages) > 10 else messages
+        for msg in recent_messages[:-1]:  # Exclude the current message we just added
+            role = "user" if msg["role"] == "user" else "model"
+            conversation_history.append({"role": role, "parts": [msg["content"]]})
+        
+        # Add current message
+        conversation_history.append({"role": "user", "parts": [chat_request.message]})
+        
+        # Generate response
+        try:
+            response = model.generate_content(conversation_history)
+            ai_response = response.text
+        except Exception as e:
+            logging.error(f"Gemini API error: {str(e)}")
+            ai_response = "I apologize, but I encountered an error while processing your request. Please try again."
         
         # Save AI response
         ai_message = ChatMessage(
