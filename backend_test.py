@@ -491,6 +491,9 @@ def run_all_tests():
     test_results.append(("Admin Login", test_admin_login()))
     test_results.append(("Auth Me", test_auth_me()))
     
+    # Admin creation test (new endpoint)
+    test_results.append(("Create Admin User", test_create_admin_user()))
+    
     # Chat functionality tests
     test_results.append(("Chat Send Message", test_chat_send_message()))
     test_results.append(("Chat Follow-up", test_chat_follow_up()))
