@@ -39,7 +39,7 @@ if google_api_key:
     genai.configure(api_key=google_api_key)
 
 # Create the main app without a prefix
-app = FastAPI(title="KurdAI API", version="1.0.0")
+app = FastAPI(title="KurdCine Chat API", version="1.0.0")
 
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
