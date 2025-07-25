@@ -478,9 +478,9 @@ const ChatInterface = () => {
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {messages.length === 0 ? (
             <div className="text-center text-gray-400 mt-20">
-              <div className="text-6xl mb-4">🤖</div>
-              <h2 className="text-2xl font-bold mb-2">Welcome to KurdAI!</h2>
-              <p className="text-lg">Start a conversation with your AI assistant</p>
+              <div className="text-6xl mb-4">🎬</div>
+              <h2 className="text-2xl font-bold mb-2">Welcome to KurdCine Chat!</h2>
+              <p className="text-lg">Start a conversation with your Kurdish AI assistant</p>
             </div>
           ) : (
             messages.map((message, index) => (
