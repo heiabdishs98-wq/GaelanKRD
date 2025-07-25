@@ -234,11 +234,11 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Authentication System"
     - "Gemini AI Integration"
-    - "Chat System with Memory"
     - "Admin Panel APIs"
-  stuck_tasks: []
+  stuck_tasks:
+    - "Gemini AI Integration"
+    - "Admin Panel APIs"
   test_all: false
   test_priority: "high_first"
 
