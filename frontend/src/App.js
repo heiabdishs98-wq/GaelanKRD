@@ -465,7 +465,7 @@ const ChatInterface = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
-            <h1 className="text-xl font-bold">KurdAI Chat</h1>
+            <h1 className="text-xl font-bold">KurdCine Chat</h1>
             <div className="flex items-center space-x-2">
               {user?.is_admin && (
                 <span className="px-2 py-1 bg-purple-600 text-xs rounded-full">Admin</span>
