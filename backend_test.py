@@ -115,13 +115,10 @@ def test_admin_registration():
                 'email': data.get('email'),
                 'username': data.get('username')
             })
-            
-            # Note: In a real system, admin privileges would be set through a separate process
-            # For testing purposes, we'll note that admin privileges need to be set manually
-            print("Note: Admin privileges need to be set manually in the database")
             return True
         elif response.status_code == 400 and "already registered" in response.text:
             print_result(True, "Admin already exists (expected for repeated tests)")
+            # Try to get admin_id from login later
             return True
         else:
             print_result(False, f"Admin registration failed with status {response.status_code}", response.text)
