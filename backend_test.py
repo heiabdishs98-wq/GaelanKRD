@@ -273,8 +273,8 @@ def test_chat_send_message():
             return True
         elif response.status_code == 500:
             # Check if it's an API key issue
-            if "API key not valid" in response.text or "Chat service error" in response.text:
-                print_result(False, "Chat failed due to invalid Gemini API key", "The EMERGENT_LLM_KEY in backend/.env needs to be a valid Gemini API key")
+            if "API key not valid" in response.text or "Chat service error" in response.text or "AI service not configured" in response.text:
+                print_result(False, "Chat failed due to Gemini API configuration issue", "The GOOGLE_API_KEY in backend/.env needs to be a valid Google Gemini API key")
                 return False
             else:
                 print_result(False, f"Chat send failed with status {response.status_code}", response.text)
