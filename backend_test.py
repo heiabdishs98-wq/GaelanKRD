@@ -420,6 +420,9 @@ def test_admin_prompts():
             else:
                 print_result(False, f"Get prompts failed with status {get_response.status_code}")
                 return False
+        elif create_response.status_code == 403:
+            print_result(False, "Admin access denied - user lacks admin privileges", "The registered admin user needs is_admin=true set in the database")
+            return False
         else:
             print_result(False, f"Create prompt failed with status {create_response.status_code}", create_response.text)
             return False
