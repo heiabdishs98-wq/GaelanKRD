@@ -339,6 +339,24 @@ async def delete_chat_session(session_id: str, current_user: User = Depends(get_
     return {"message": "Session deleted successfully"}
 
 # Admin endpoints
+@api_router.post("/admin/create-admin/{user_id}")
+async def create_admin_user(user_id: str, current_user: User = Depends(get_current_user)):
+    """Create admin user - for initial setup, any user can promote another user to admin"""
+    try:
+        # Update user to admin
+        result = await db.users.update_one(
+            {"id": user_id},
+            {"$set": {"is_admin": True, "updated_at": datetime.utcnow()}}
+        )
+        
+        if result.matched_count == 0:
+            raise HTTPException(status_code=404, detail="User not found")
+        
+        return {"message": f"User {user_id} has been made an admin"}
+    except Exception as e:
+        logging.error(f"Admin creation error: {str(e)}")
+        raise HTTPException(status_code=500, detail="Admin creation failed")
+
 @api_router.get("/admin/analytics")
 async def get_analytics(current_user: User = Depends(get_current_admin_user)):
     # Get user count
