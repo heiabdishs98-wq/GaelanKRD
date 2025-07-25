@@ -373,6 +373,9 @@ def test_admin_analytics():
                 'recent_users_count': len(data.get('recent_users', []))
             })
             return True
+        elif response.status_code == 403:
+            print_result(False, "Admin access denied - user lacks admin privileges", "The registered admin user needs is_admin=true set in the database")
+            return False
         else:
             print_result(False, f"Admin analytics failed with status {response.status_code}", response.text)
             return False
