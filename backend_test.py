@@ -187,6 +187,32 @@ def test_admin_login():
         print_result(False, f"Admin login request failed: {str(e)}")
         return False
 
+def test_create_admin_user():
+    """Test the new admin creation endpoint"""
+    print_test_header("Admin Creation - Create Admin User")
+    
+    if not user_token or not admin_id:
+        print_result(False, "No user token or admin ID available")
+        return False
+    
+    try:
+        headers = {"Authorization": f"Bearer {user_token}"}
+        response = requests.post(f"{BASE_URL}/admin/create-admin/{admin_id}", headers=headers, timeout=10)
+        
+        if response.status_code == 200:
+            data = response.json()
+            print_result(True, "Admin user created successfully", {
+                'message': data.get('message'),
+                'admin_id': admin_id
+            })
+            return True
+        else:
+            print_result(False, f"Admin creation failed with status {response.status_code}", response.text)
+            return False
+    except Exception as e:
+        print_result(False, f"Admin creation request failed: {str(e)}")
+        return False
+
 def test_auth_me():
     """Test getting current user info"""
     print_test_header("Authentication - Get Current User")
