@@ -164,15 +164,18 @@ backend:
   
   - task: "Admin Panel APIs"
     implemented: true
-    working: true
+    working: false
     file: "server.py"
-    stuck_count: 0
+    stuck_count: 1
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Admin analytics and custom prompt management APIs"
+      - working: false
+        agent: "testing"
+        comment: "❌ CRITICAL: Admin endpoints return 403 Forbidden. The registration endpoint doesn't set is_admin=true for any user. Admin functionality is implemented but there's no mechanism to create admin users. Need either: 1) Admin flag in registration, 2) Database script to set admin privileges, or 3) Environment-based admin user creation."
 
 frontend:
   - task: "Authentication UI"
